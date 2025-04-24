@@ -44,12 +44,12 @@ jobs:
           name: dist
 
       - name:  listar contenido de dist/
-        run: ls -R dist
+        run: ls -ltra
 
       # 3) Deploy a GitHub Pages
-      - name: Desplegar a GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
+      # - name: Desplegar a GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./dist
+      #     publish_branch: gh-pages
