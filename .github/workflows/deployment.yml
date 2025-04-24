@@ -1,63 +1,55 @@
 name: Ejercicio 1
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4.2.2
-  
-      - name: Set up Node.js
-        uses: actions/setup-node@v4.4.0
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
-
-      - name: Cache node_modules
-        uses: actions/cache@v4.2.3
+      - uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-             ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm install
-        
-      - name: run lint
-        run: npm run lint
-
-      - name: Run tests
-        run: npm test
-      
-      - name: Build the project
-        run: npm run build
-
-      - name: Subir artefactos de construcción
-        uses: actions/upload-artifact@v4.6.2
+            ${{ runner.os }}-node-
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
 
- 
   deploy:
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v4
 
-      - name: Subir artefactos de construcción
-        uses: actions/download-artifact@v4.6.2
+      # 1) Listar archivos para comprobar que exista dist/
+      - name:  listar contenido raíz
+        run: ls -R .
+
+      # 2) Descargar el artefacto 'dist' generado en build
+      - uses: actions/download-artifact@v4
         with:
           name: dist
-         
+
+      - name:  listar contenido de dist/
+        run: ls -R dist
+
+      # 3) Deploy a GitHub Pages
       - name: Desplegar a GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          publish_dir: ./dist
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      
+          publish_dir: ./dist
+          publish_branch: gh-pages
