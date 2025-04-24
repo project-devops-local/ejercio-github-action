@@ -1,0 +1,15 @@
+name: salida github event
+on: issues
+
+jobs:
+  output-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Salida de github event
+        run: |
+          echo "El evento es ${{ toJson(github.event) }}"
+          echo "El evento es ${{ toJson(github.event.issue) }}"
+          echo "El evento es ${{ toJson(github.event.issue.title) }}"
+          echo "El evento es ${{ toJson(github.event.issue.body) }}"
+          echo "El evento es ${{ toJson(github.event.issue.user.login) }}"
+          echo "El evento es ${{ toJson(github.event.issue.user.html_url) }}"
