@@ -2,11 +2,7 @@ import HelpBox from './HelpBox';
 import './HelpArea.css';
 
 const HELP_ITEMS = [
-  {
-    id: 'h1',
-    title: 'Maikol pelaez?',
-    text: 'Soy un devessssloper de software con experiencia en el desarrollo de aplicaciones web y móviles. Me apasiona aprender nuevas tecnologías y mejorar mis habilidades constantemente.',
-  },
+ 
   {
     id: 'h2',
     title: 'What is GitHub?',
