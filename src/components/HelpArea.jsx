@@ -4,6 +4,11 @@ import './HelpArea.css';
 const HELP_ITEMS = [
  
   {
+    id: 'h2',
+    title: 'prueba dempo',
+    text: 'cualquier cosa ddddd',
+  },
+  {
     id: 'h3',
     title: 'maikol',
     text: 'cualquier cosa',
